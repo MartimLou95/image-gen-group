@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Style My Photo</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!--
+    THE CONTRACT (frozen names — do not rename without telling the team):
+      #image-input  the file picker
+      .style-btn    the 4 style buttons (each has data-style="...")
+      #convert-btn  the go button
+      #result-img   where the result image appears
+      #status       text messages: "Loading...", errors, etc.
+    Person B owns this file's look & layout. A and C target these IDs.
+  -->
+  <header>
+    <h1>Style My Photo</h1>
+    <p>Upload a photo, pick a style, get it re-imagined.</p>
+  </header>
+
+  <main>
+    <section aria-label="Upload">
+      <label for="image-input">Choose a photo</label>
+      <input type="file" id="image-input" accept="image/*" />
+      <!-- TODO (B): show a preview of the chosen photo here -->
+      <img id="preview-img" alt="Your uploaded photo" hidden />
+    </section>
+
+    <section aria-label="Pick a style">
+      <h2>Pick a style</h2>
+      <div class="style-buttons">
+        <button class="style-btn" data-style="anime" type="button">Anime</button>
+        <button class="style-btn" data-style="pixar" type="button">Pixar</button>
+        <button class="style-btn" data-style="poster" type="button">Movie Poster</button>
+        <button class="style-btn" data-style="watercolour" type="button">Watercolour</button>
+      </div>
+    </section>
+
+    <button id="convert-btn" type="button">Convert</button>
+
+    <p id="status" role="status"></p>
+
+    <section aria-label="Result">
+      <img id="result-img" alt="Your re-styled photo" hidden />
+    </section>
+  </main>
+
+  <!-- Load order matters: helpers first, then the UI that uses them -->
+  <script src="js/api.js"></script>
+  <script src="js/validate.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>

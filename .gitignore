@@ -1,0 +1,14 @@
+# Never commit secrets or junk.
+.dev.vars
+.env
+.env.*
+*.key
+*.pem
+
+# Node / Cloudflare
+node_modules/
+worker/node_modules/
+.wrangler/
+
+# OS
+.DS_Store

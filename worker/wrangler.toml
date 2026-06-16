@@ -1,0 +1,16 @@
+# Cloudflare Worker config. Person A: run from inside the worker/ folder.
+#
+# Setup (one time):
+#   npm install -g wrangler        # the Cloudflare CLI
+#   wrangler login                 # opens browser, log into your Cloudflare account
+#   wrangler secret put OPENAI_API_KEY   # paste the shared key when asked (NEVER goes in a file)
+#
+# Run locally while developing:
+#   wrangler dev
+#
+# Publish (gives you the https://...workers.dev URL to put in js/api.js):
+#   wrangler deploy
+
+name = "style-my-photo-proxy"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
