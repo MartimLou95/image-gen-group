@@ -1,0 +1,8 @@
+{
+  "liveServer.settings.ignoreFiles": [
+    "**/.wrangler/**",
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/*.map"
+  ]
+}

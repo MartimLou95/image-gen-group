@@ -12,3 +12,7 @@ worker/node_modules/
 
 # OS
 .DS_Store
+
+#other
+.assignment.md
+.rubrics.md
