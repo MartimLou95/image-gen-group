@@ -17,6 +17,19 @@ async function convertImage() {
     return;
   }
 
+  // Make sure the file is actually an image.
+  if (!photo.type.startsWith("image/")) {
+    status.textContent = "That file is not an image. Please choose a photo.";
+    return;
+  }
+
+  // Make sure the image is not too big (limit: 20 MB).
+  const maxSizeMB = 20;
+  if (photo.size > maxSizeMB * 1024 * 1024) {
+    status.textContent = "That image is too big. Please choose one under 20 MB.";
+    return;
+  }
+
   // Show a loading message and hide any old result.
   status.textContent = "Generating your image... this can take up to a minute.";
   resultImage.style.display = "none";

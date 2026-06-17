@@ -28,6 +28,12 @@ export default {
       return new Response("", { headers: RESPONSE_HEADERS });
     }
 
+    // Only allow POST. A GET or anything else is rejected.
+    if (request.method !== "POST") {
+      const errorReply = JSON.stringify({ error: "Please use POST." });
+      return new Response(errorReply, { status: 405, headers: RESPONSE_HEADERS });
+    }
+
     // We wrap the rest in "try" so that if anything breaks, we send back a tidy
     // error instead of the whole backend crashing. "catch" is the safety net.
     try {
@@ -43,6 +49,28 @@ export default {
       if (!photo || !prompt) {
         const errorReply = JSON.stringify({
           error: "Missing photo or unknown style.",
+        });
+        return new Response(errorReply, {
+          status: 400,
+          headers: RESPONSE_HEADERS,
+        });
+      }
+
+      // STEP 4b: Reject non-image or oversized files before calling OpenAI.
+      // This protects our API spend, since anyone could call this Worker directly.
+      const maxSizeMB = 20;
+      if (!photo.type || !photo.type.startsWith("image/")) {
+        const errorReply = JSON.stringify({
+          error: "Uploaded file is not an image.",
+        });
+        return new Response(errorReply, {
+          status: 400,
+          headers: RESPONSE_HEADERS,
+        });
+      }
+      if (photo.size > maxSizeMB * 1024 * 1024) {
+        const errorReply = JSON.stringify({
+          error: "Image is too large (max 20 MB).",
         });
         return new Response(errorReply, {
           status: 400,
