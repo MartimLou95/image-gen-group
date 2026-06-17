@@ -1,6 +1,6 @@
-// The address of our backend. For now it's the local test server (wrangler dev).
-// When we deploy, we'll swap this for the live Worker address.
-const BACKEND_URL = "http://localhost:8787";
+// The address of our live backend (the deployed Cloudflare Worker).
+// This runs in the cloud 24/7 — no terminal needed on your Mac.
+const BACKEND_URL = "https://style-my-photo-proxy.martimlou.workers.dev";
 
 // This runs when the user clicks the "Generate AI Art" button.
 async function convertImage() {
