@@ -6,9 +6,8 @@
 
 Evaluates core application functionality and how well it meets the requirements:
 
-- Converts a **user-entered location** into latitude and longitude using the Geocoding API.
-- Successfully retrieves and displays **weather data** for the selected location.
-- Displays only the required data: **location name**, **temperature**, and **weather description**.
+- Successfully retrieves and displays data from your chosen API
+- Displays only the required data data from your chosen API
 - UI updates **dynamically** after data is fetched.
 - Handles API and user input errors **gracefully** with appropriate feedback.
 
@@ -18,7 +17,7 @@ Evaluates core application functionality and how well it meets the requirements:
 
 Assesses JavaScript proficiency and effective API usage:
 
-- Correct use of **`fetch()`** or other HTTP methods to call OpenWeatherMap APIs.
+- Correct use of **fetch()** or other HTTP methods to call the API.
 - Parses JSON responses and **extracts correct data fields**.
 - JavaScript functions are **modular**, **well-named**, and logically structured.
 - API key management follows best practices (not hard-coded in public files).
@@ -29,7 +28,7 @@ Assesses JavaScript proficiency and effective API usage:
 
 Focuses on user interface and real-time updates:
 
-- Weather data is inserted dynamically into the DOM.
+- Data is inserted dynamically into the DOM.
 - Information is **clearly displayed** and formatted appropriately.
 - Responsive layout or visually clear **dashboard structure**.
 - Good use of semantic HTML elements to organize data presentation.
@@ -40,9 +39,9 @@ Focuses on user interface and real-time updates:
 
 Measures robustness and user experience during edge cases:
 
-- Invalid inputs (e.g., gibberish locations) are handled with **user-friendly messages**.
+- Invalid inputs are handled with **user-friendly messages**.
 - Handles failed API calls or empty responses **without crashing** the app.
-- Optional: Loading indicators or status messages while data is being fetched.
+- Optional, but great to have: Loading indicators or status messages while data is being fetched.
 
 ---
 
@@ -57,7 +56,7 @@ Assesses maintainability and code cleanliness:
 
 ---
 
-### **Team Participation & Effort – 10%**
+### \*\*Team Participation & Effort – 10%. \*\*
 
 Evaluates individual contribution relative to peers:
 
@@ -76,6 +75,16 @@ Evaluates teamwork and version control practices:
 - Each team member has visible contribution through **commits**.
 - Commit messages are **clear and descriptive**.
 - Repository contains a well-written `README.md` and clear project setup.
+
+\---
+
+## Examples for Stretch Goals - 0%
+
+- Use multiple APIs to combine different data sources.
+- Add local storage to save user preferences or favorites.
+- Implement search filters or pagination.
+- Include animations or transitions for polished interactivity.
+- Add a loading state or error message for better UX.
 
 ---
 
