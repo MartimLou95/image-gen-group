@@ -24,7 +24,7 @@ imageUpload.addEventListener("change", function () {
 
   previewImage.src = URL.createObjectURL(file);
   previewImage.style.display = "block";
-  previewText.textContent = "Preview of your selected photo:";
+  previewText.textContent = "";
 });
 
 // This runs when the user clicks the "Generate AI Art" button.
@@ -32,6 +32,7 @@ async function convertImage() {
   const status = document.getElementById("status");
   const resultImage = document.getElementById("resultImage");
   const convertBtn = document.querySelector(".convert-btn");
+  const downloadBtn = document.getElementById("downloadBtn");
 
   const photo = document.getElementById("imageUpload").files[0];
   const style = document.getElementById("artStyle").value;
@@ -54,6 +55,10 @@ async function convertImage() {
 
   convertBtn.disabled = true;
   convertBtn.textContent = "🎨 Generating...";
+
+  if (downloadBtn) {
+    downloadBtn.hidden = true;
+  }
 
   status.textContent = "Creating your artwork... this can take up to a minute.";
   resultImage.style.display = "none";
@@ -80,6 +85,11 @@ async function convertImage() {
 
     resultImage.src = result.image;
     resultImage.style.display = "block";
+
+    if (downloadBtn) {
+      downloadBtn.href = result.image;
+      downloadBtn.hidden = false;
+    }
 
     convertBtn.disabled = false;
     convertBtn.textContent = "Generate AI Art";
