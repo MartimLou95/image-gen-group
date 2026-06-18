@@ -101,3 +101,21 @@ select {
   border-radius: 12px;
   object-fit: cover;
 }
+.upload-preview {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.upload-preview img {
+  display: none;
+  max-width: 100%;
+  max-height: 260px;
+  margin-top: 12px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.convert-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
