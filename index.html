@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+
+    <header>
+        <h1>AI Art Converter</h1>
+        <p>Step right in! Upload an image and transform it into a wild new art style!</p>
+    </header>
+
     <div class="container">
       <h1>AI Art Converter</h1>
       <p>Upload an image and transform it into AI-generated artwork.</p>
@@ -28,6 +34,43 @@
         </select>
       </div>
 
+      <section class="styles-section">
+        <h2>Pick Your Style!</h2>
+        <div class="styles-grid">
+
+          <div class="style-card">
+            <img src="images/ghibli.jpg" alt="Studio Ghibli Example">
+            <h3>Studio Ghibli</h3>
+          </div>
+
+          <div class="style-card">
+            <img src="images/disney.jpg" alt="Disney Style Inspired Example">
+            <h3>Disney Style Inspired</h3>
+          </div>
+
+          <div class="style-card">
+            <img src="images/anime.jpg" alt="Anime Example">
+            <h3>Anime</h3>
+          </div>
+
+          <div class="style-card">
+            <img src="images/cyberpunk.jpg" alt="Cyberpunk Example">
+            <h3>Cyberpunk</h3>
+          </div>
+
+          <div class="style-card">
+            <img src="images/oilpainting.jpg" alt="Oil Painting Example">
+            <h3>Oil Painting</h3>
+          </div>
+
+          <div class="style-card">
+            <img src="images/pixelart.jpg" alt="Pixel Art Example">
+            <h3>Pixel Art</h3>
+          </div>
+
+        </div>
+      </section>
+
       <button class="convert-btn" onclick="convertImage()">
         Generate AI Art
       </button>
@@ -37,6 +80,7 @@
       <div class="preview">
         <img id="resultImage" alt="Your AI image" />
       </div>
+
     </div>
 
     <script src="js/script.js"></script>

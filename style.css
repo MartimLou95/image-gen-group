@@ -9,9 +9,11 @@ body {
     color: #2b2b2b;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     overflow-x: hidden;
+    padding-top: 40px;
 }
 
 .container {
@@ -103,4 +105,74 @@ select {
     color: #ff3f72;
     font-size: 1.1rem;
     text-shadow: 1px 1px #ffe066;
+}
+/* ── FunHouse additions ── */
+
+header {
+    width: 90%;
+    max-width: 700px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 3px 3px #ff3f72;
+    margin: 0 0 8px;
+}
+
+header p {
+    color: #fff;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+
+.styles-section {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.styles-section h2 {
+    text-align: center;
+    color: #ff3f72;
+    font-size: 1.6rem;
+    text-shadow: 1px 1px #ffe066;
+    margin-bottom: 16px;
+}
+
+.styles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.style-card {
+    background: #fff8f9;
+    border: 3px solid #ff3f72;
+    border-radius: 14px;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.style-card:hover {
+    transform: scale(1.05) rotate(-1deg);
+}
+
+.style-card img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    background: #ffe0e8;
+}
+
+.style-card h3 {
+    margin: 8px 0 0;
+    font-size: 0.95rem;
+    color: #ff3f72;
 }
