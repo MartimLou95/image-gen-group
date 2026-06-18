@@ -3,6 +3,29 @@
 const BACKEND_URL = "https://style-my-photo-proxy.martimlou.workers.dev";
 
 // This runs when the user clicks the "Generate AI Art" button.
+const imageUpload = document.getElementById("imageUpload");
+const previewImage = document.getElementById("previewImage");
+const previewText = document.getElementById("previewText");
+
+imageUpload.addEventListener("change", function () {
+  const file = imageUpload.files[0];
+
+  if (!file) {
+    previewImage.style.display = "none";
+    previewText.textContent = "No photo selected yet.";
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    previewImage.style.display = "none";
+    previewText.textContent = "Please choose an image file.";
+    return;
+  }
+
+  previewImage.src = URL.createObjectURL(file);
+  previewImage.style.display = "block";
+  previewText.textContent = "Preview of your selected photo:";
+});
 async function convertImage() {
   const status = document.getElementById("status");
   const resultImage = document.getElementById("resultImage");

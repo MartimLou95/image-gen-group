@@ -8,14 +8,17 @@
   </head>
   <body>
     <div class="container">
-      <h1>AI Art Converter</h1>
-      <p>Upload an image and transform it into AI-generated artwork.</p>
+      <h1>Style My Photo</h1>
+      <p>Upload a photo, choose a style, and transform it with AI.</p>
 
       <div class="form-group">
         <label for="imageUpload">Upload Image</label>
         <input type="file" id="imageUpload" accept="image/*" />
       </div>
-
+<div class="upload-preview">
+  <p id="previewText">No photo selected yet.</p>
+  <img id="previewImage" alt="Uploaded image preview" />
+</div>
       <div class="form-group">
         <label for="artStyle">Choose Art Style</label>
         <select id="artStyle">
