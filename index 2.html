@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Art Converter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>AI Art Converter</h1>
+      <p>Upload an image and transform it into AI-generated artwork.</p>
+
+      <div class="form-group">
+        <label for="imageUpload">Upload Image</label>
+        <input type="file" id="imageUpload" accept="image/*" />
+      </div>
+
+      <div class="form-group">
+        <label for="artStyle">Choose Art Style</label>
+        <select id="artStyle">
+          <option value="ghibli">Studio Ghibli</option>
+          <option value="anime">Anime</option>
+          <option value="disney">Disney</option>
+          <option value="cyberpunk">Cyberpunk</option>
+          <option value="oil_painting">Oil Painting</option>
+          <option value="pixel_art">Pixel Art</option>
+        </select>
+      </div>
+
+      <button class="convert-btn" onclick="convertImage()">
+        Generate AI Art
+      </button>
+
+      <div class="status" id="status"></div>
+
+      <div class="preview">
+        <img id="resultImage" alt="Your AI image" />
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
