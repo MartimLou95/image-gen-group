@@ -8,8 +8,8 @@
   </head>
   <body>
     <div class="container">
-      <h1>AI Art Converter</h1>
-      <p>Upload an image and transform it into AI-generated artwork.</p>
+      <h1>Style My Photo</h1>
+      <p>Upload a photo, choose a style, and transform it with AI.</p>
 
       <div class="form-group">
         <label for="imageUpload">Upload Image</label>
@@ -34,8 +34,28 @@
 
       <div class="status" id="status"></div>
 
-      <div class="preview">
-        <img id="resultImage" alt="Your AI image" />
+      <div class="image-comparison">
+        <div class="image-card">
+          <h3>Original Photo</h3>
+          <p id="previewText">No photo selected yet.</p>
+          <img id="previewImage" alt="Uploaded image preview" />
+        </div>
+
+        <div class="image-card">
+          <h3>Styled Result</h3>
+
+          <div class="result-container">
+            <img id="resultImage" alt="Your AI image" />
+            <a
+              id="downloadBtn"
+              class="download-btn"
+              download="styled-image.png"
+              hidden
+            >
+              Download Image
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
