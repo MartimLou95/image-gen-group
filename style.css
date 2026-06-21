@@ -129,6 +129,30 @@ select {
     background: #16a34a;
 }
 
+/* Before/after slider: original and result overlaid in a square box;
+   the slider wipes the result away to reveal the original underneath. */
+.compare-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    margin-top: 24px;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.compare-box img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#compareSlider {
+    width: 100%;
+    margin-top: 12px;
+}
+
 @media (max-width: 700px) {
     .image-comparison {
         grid-template-columns: 1fr;

@@ -34,6 +34,10 @@ async function convertImage() {
   const resultImage = document.getElementById("resultImage");
   const convertBtn = document.querySelector(".convert-btn");
   const downloadBtn = document.getElementById("downloadBtn");
+  const compareBox = document.getElementById("compareBox");
+  const compareOriginal = document.getElementById("compareOriginal");
+  const compareResult = document.getElementById("compareResult");
+  const compareSlider = document.getElementById("compareSlider");
 
   // Get the photo, the dropdown style, and any typed style.
   const photo = document.getElementById("imageUpload").files[0];
@@ -66,6 +70,8 @@ async function convertImage() {
   if (downloadBtn) {
     downloadBtn.hidden = true;
   }
+  compareBox.hidden = true;
+  compareSlider.hidden = true;
   status.textContent = "Creating your artwork... this can take up to a minute.";
   resultImage.style.display = "none";
 
@@ -103,6 +109,14 @@ async function convertImage() {
       downloadBtn.hidden = false;
     }
 
+    // Show the before/after slider now that the result has arrived.
+    compareOriginal.src = URL.createObjectURL(photo);
+    compareResult.src = result.image;
+    compareResult.style.clipPath = "inset(0 50% 0 0)";
+    compareSlider.value = 50;
+    compareBox.hidden = false;
+    compareSlider.hidden = false;
+
     status.textContent = "Done! Your styled image is ready.";
     convertBtn.disabled = false;
     convertBtn.textContent = "Generate AI Art";
@@ -139,3 +153,12 @@ function imageToPng(file) {
     img.src = URL.createObjectURL(file);
   });
 }
+
+// Before/after slider: drag to wipe the styled result away and reveal the original.
+document
+  .getElementById("compareSlider")
+  .addEventListener("input", function (event) {
+    const value = event.target.value;
+    document.getElementById("compareResult").style.clipPath =
+      "inset(0 " + (100 - value) + "% 0 0)";
+  });
