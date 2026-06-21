@@ -26,6 +26,7 @@ imageUpload.addEventListener("change", function () {
   previewImage.src = URL.createObjectURL(file);
   previewImage.style.display = "block";
   previewText.textContent = "";
+  document.getElementById("originalCard").hidden = false;
 });
 
 // Runs when the user clicks the "Generate AI Art" button.
@@ -35,6 +36,7 @@ async function convertImage() {
   const convertBtn = document.querySelector(".convert-btn");
   const downloadBtn = document.getElementById("downloadBtn");
   const resultCard = document.getElementById("resultCard");
+  const originalCard = document.getElementById("originalCard");
   const compareBox = document.getElementById("compareBox");
   const compareOriginal = document.getElementById("compareOriginal");
   const compareResult = document.getElementById("compareResult");
@@ -58,10 +60,10 @@ async function convertImage() {
   }
 
   // Check the image is not too large (max 20 MB).
-  const maxSizeMB = 20;
+  const maxSizeMB = 26;
   if (photo.size > maxSizeMB * 1024 * 1024) {
     status.textContent =
-      "That image is too big. Please choose one under 20 MB.";
+      "That image is too big. Please choose one under 26 MB.";
     return;
   }
 
@@ -71,6 +73,7 @@ async function convertImage() {
   if (downloadBtn) {
     downloadBtn.hidden = true;
   }
+  originalCard.hidden = false;
   resultCard.hidden = true;
   compareBox.hidden = true;
   compareSlider.hidden = true;
@@ -101,7 +104,8 @@ async function convertImage() {
       return;
     }
 
-    // Success! Reveal the result card and show the styled image.
+    // Success! Hide the original card and reveal the styled result.
+    originalCard.hidden = true;
     resultCard.hidden = false;
     resultImage.src = result.image;
     resultImage.style.display = "block";
@@ -136,8 +140,8 @@ function imageToPng(file) {
   return new Promise(function (resolve) {
     const img = new Image();
     img.onload = function () {
-      // Shrink very large photos to 1024px max (the result is 1024 anyway).
-      const maxDim = 1024;
+      // Shrink very large photos to 1536px max (the model's largest dimension).
+      const maxDim = 1536;
       let width = img.width;
       let height = img.height;
       if (width > maxDim || height > maxDim) {

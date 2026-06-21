@@ -1,13 +1,17 @@
 // STYLE_PROMPTS is a variable that collects instructions for ChatGPT-image-1 depending on the user choice.
 const STYLE_PROMPTS = {
   ghibli:
-    "Transform this photo in the style of a cinematic Japanese anime film.",
-  anime: "Transform this photo in a Japanese animated TV show style.",
-  disney: "Transform this photo in a classic 1990s animation style.",
-  cyberpunk: "Transform this photo in a neon cyberpunk style.",
-  oil_painting: "Transform this photo in a classical oil painting by Turner.",
+    "Repaint this photo as a hand-drawn Studio Ghibli anime scene: soft watercolour backgrounds, warm natural light, gentle cel-shading, clean delicate linework, and lush painterly skies and foliage. Keep the original subject, pose, and composition.",
+  anime:
+    "Redraw this photo as a modern Japanese anime illustration: crisp clean linework, vibrant cel-shaded colours, expressive eyes, smooth gradients and soft highlights, and a polished studio finish. Preserve the subject's pose, framing, and likeness.",
+  disney:
+    "Restyle this photo as a polished 3D Disney/Pixar animated character: smooth rounded forms, soft subsurface skin shading, warm cinematic lighting, friendly expressive features, and rich saturated colour. Keep the original pose, composition, and recognisable likeness.",
+  cyberpunk:
+    "Transform this photo into a neon cyberpunk scene: moody night atmosphere, glowing magenta and cyan neon, rim-lit reflections, holographic signage, rain-slicked surfaces, and a high-contrast futuristic colour grade. Keep the subject's pose, composition, and likeness.",
+  oil_painting:
+    "Repaint this photo as a classical old-master oil painting: visible textured brushstrokes, rich layered colour, warm chiaroscuro lighting, and real canvas texture. Preserve the subject's pose, composition, and likeness.",
   pixel_art:
-    "Transform this photo in a retro, highly detailed pixel art style.",
+    "Recreate this photo as detailed retro pixel art: a limited 16-bit colour palette, crisp aligned pixels, clean dithering for shading, and bold readable shapes like a classic video-game sprite. Keep the subject's pose and composition recognisable.",
 };
 
 // Headers we attach to every reply we send back.
@@ -67,7 +71,7 @@ export default {
 
       // STEP 4b: Reject non-image or oversized files before calling OpenAI.
       // This protects our API spend, since anyone could call this Worker directly.
-      const maxSizeMB = 20;
+      const maxSizeMB = 26;
       if (!photo.type || !photo.type.startsWith("image/")) {
         const errorReply = JSON.stringify({
           error: "Uploaded file is not an image.",
@@ -79,7 +83,7 @@ export default {
       }
       if (photo.size > maxSizeMB * 1024 * 1024) {
         const errorReply = JSON.stringify({
-          error: "Image is too large (max 20 MB).",
+          error: "Image is too large (max 26 MB).",
         });
         return new Response(errorReply, {
           status: 400,
