@@ -2,34 +2,57 @@
 // This runs in the cloud 24/7 — no terminal needed on your Mac.
 const BACKEND_URL = "https://style-my-photo-proxy.martimlou.workers.dev";
 
-// This runs when the user clicks the "Generate AI Art" button.
+// Elements for the live upload preview (shown before generating).
+const imageUpload = document.getElementById("imageUpload");
+const previewImage = document.getElementById("previewImage");
+const previewText = document.getElementById("previewText");
+
+// When the user picks a file, show a preview of it straight away.
+imageUpload.addEventListener("change", function () {
+  const file = imageUpload.files[0];
+
+  if (!file) {
+    previewImage.style.display = "none";
+    previewText.textContent = "No photo selected yet.";
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    previewImage.style.display = "none";
+    previewText.textContent = "Please choose an image file.";
+    return;
+  }
+
+  previewImage.src = URL.createObjectURL(file);
+  previewImage.style.display = "block";
+  previewText.textContent = "";
+});
+
+// Runs when the user clicks the "Generate AI Art" button.
 async function convertImage() {
   const status = document.getElementById("status");
-  const spinner = document.getElementById("spinner");
   const resultImage = document.getElementById("resultImage");
-  const originalImage = document.getElementById("originalImage");
-  const compare = document.getElementById("compare");
-  const compareSlider = document.getElementById("compareSlider");
-  const downloadLink = document.getElementById("downloadLink");
+  const convertBtn = document.querySelector(".convert-btn");
+  const downloadBtn = document.getElementById("downloadBtn");
 
-  // Get the photo the user chose, the dropdown style, and any typed style.
+  // Get the photo, the dropdown style, and any typed style.
   const photo = document.getElementById("imageUpload").files[0];
   const style = document.getElementById("artStyle").value;
   const customStyle = document.getElementById("customStyle").value;
 
-  // If they didn't choose a photo, tell them and stop.
+  // Validate that a photo was selected.
   if (!photo) {
     status.textContent = "Please choose a photo first.";
     return;
   }
 
-  // Make sure the file is actually an image.
+  // Validate that the file is actually an image.
   if (!photo.type.startsWith("image/")) {
     status.textContent = "That file is not an image. Please choose a photo.";
     return;
   }
 
-  // Make sure the image is not too big (limit: 20 MB).
+  // Check the image is not too large (max 20 MB).
   const maxSizeMB = 20;
   if (photo.size > maxSizeMB * 1024 * 1024) {
     status.textContent =
@@ -37,14 +60,16 @@ async function convertImage() {
     return;
   }
 
-  // Show a loading message and spinner; hide any old result.
-  status.textContent = "Generating your image... this can take up to a minute.";
-  spinner.hidden = false;
-  compare.hidden = true;
-  compareSlider.hidden = true;
-  downloadLink.hidden = true;
+  // Disable the button and show a loading state so it can't be clicked twice.
+  convertBtn.disabled = true;
+  convertBtn.textContent = "Generating...";
+  if (downloadBtn) {
+    downloadBtn.hidden = true;
+  }
+  status.textContent = "Creating your artwork... this can take up to a minute.";
+  resultImage.style.display = "none";
 
-  // OpenAI's edit endpoint only accepts PNG, so convert the photo first.
+  // Normalise the photo to a clean PNG so OpenAI reliably accepts it.
   const pngBlob = await imageToPng(photo);
 
   // Put the photo, the dropdown style, and the typed style into a package.
@@ -54,51 +79,42 @@ async function convertImage() {
   formData.append("customStyle", customStyle);
 
   try {
-    // Send it to the backend and wait for the reply.
     const response = await fetch(BACKEND_URL, {
       method: "POST",
       body: formData,
     });
     const result = await response.json();
 
-    // If the backend sent back an error, show it and stop.
+    // If the backend sent back an error, show it and re-enable the button.
     if (result.error) {
       status.textContent = "Error: " + result.error;
-      spinner.hidden = true;
+      convertBtn.disabled = false;
+      convertBtn.textContent = "Generate AI Art";
       return;
     }
 
-    // Success! Show the original and the result in the compare box.
-    originalImage.src = URL.createObjectURL(photo);
+    // Success! Show the styled image.
     resultImage.src = result.image;
-    resultImage.style.clipPath = "inset(0 0% 0 0)";
-    compareSlider.value = 100;
+    resultImage.style.display = "block";
 
-    // Reveal the result, the slider, and the download link.
-    compare.hidden = false;
-    compareSlider.hidden = false;
-    downloadLink.href = result.image;
-    downloadLink.hidden = false;
+    // Enable the download button so the user can save their artwork.
+    if (downloadBtn) {
+      downloadBtn.href = result.image;
+      downloadBtn.hidden = false;
+    }
 
-    status.textContent = "Done!";
-    spinner.hidden = true;
+    status.textContent = "Done! Your styled image is ready.";
+    convertBtn.disabled = false;
+    convertBtn.textContent = "Generate AI Art";
   } catch (error) {
     status.textContent = "Could not reach the backend. Is it running?";
-    spinner.hidden = true;
+    convertBtn.disabled = false;
+    convertBtn.textContent = "Generate AI Art";
   }
 }
 
-// Before/after slider: drag to wipe between the original and the result.
-document
-  .getElementById("compareSlider")
-  .addEventListener("input", function (event) {
-    const value = event.target.value;
-    document.getElementById("resultImage").style.clipPath =
-      "inset(0 " + (100 - value) + "% 0 0)";
-  });
-
-// Convert any uploaded image into a PNG, because OpenAI's edit endpoint
-// only accepts PNG. We draw the photo onto a canvas and export it as PNG.
+// Convert any uploaded image into a clean PNG. Re-drawing the photo on a canvas
+// strips odd colour profiles and metadata that can make OpenAI reject the file.
 function imageToPng(file) {
   return new Promise(function (resolve) {
     const img = new Image();
