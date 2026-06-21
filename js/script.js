@@ -34,6 +34,7 @@ async function convertImage() {
   const resultImage = document.getElementById("resultImage");
   const convertBtn = document.querySelector(".convert-btn");
   const downloadBtn = document.getElementById("downloadBtn");
+  const resultCard = document.getElementById("resultCard");
   const compareBox = document.getElementById("compareBox");
   const compareOriginal = document.getElementById("compareOriginal");
   const compareResult = document.getElementById("compareResult");
@@ -70,6 +71,7 @@ async function convertImage() {
   if (downloadBtn) {
     downloadBtn.hidden = true;
   }
+  resultCard.hidden = true;
   compareBox.hidden = true;
   compareSlider.hidden = true;
   status.textContent = "Creating your artwork... this can take up to a minute.";
@@ -99,7 +101,8 @@ async function convertImage() {
       return;
     }
 
-    // Success! Show the styled image.
+    // Success! Reveal the result card and show the styled image.
+    resultCard.hidden = false;
     resultImage.src = result.image;
     resultImage.style.display = "block";
 
