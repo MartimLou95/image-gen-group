@@ -4,60 +4,98 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Art Converter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
+    <header class="page-header">
       <h1>Style My Photo</h1>
-      <p>Upload a photo, choose a style, and transform it with AI.</p>
+      <p class="subtitle">
+        Upload a photo, choose a style, and transform it with AI.
+      </p>
+    </header>
 
-      <div class="form-group">
-        <label for="imageUpload">Upload Image</label>
-        <input type="file" id="imageUpload" accept="image/*" />
-      </div>
-
-      <div class="form-group">
-        <label for="artStyle">Choose Art Style</label>
-        <select id="artStyle">
-          <option value="ghibli">Studio Ghibli</option>
-          <option value="anime">Anime</option>
-          <option value="disney">Disney</option>
-          <option value="cyberpunk">Cyberpunk</option>
-          <option value="oil_painting">Oil Painting</option>
-          <option value="pixel_art">Pixel Art</option>
-        </select>
-      </div>
-
-      <button class="convert-btn" onclick="convertImage()">
-        Generate AI Art
-      </button>
-
-      <div class="status" id="status"></div>
-
-      <div class="image-comparison">
-        <div class="image-card">
-          <h3>Original Photo</h3>
-          <p id="previewText">No photo selected yet.</p>
-          <img id="previewImage" alt="Uploaded image preview" />
+    <main class="app-layout">
+      <!-- LEFT: the controls -->
+      <section class="panel controls">
+        <div class="form-group">
+          <label for="imageUpload">Upload Image</label>
+          <input type="file" id="imageUpload" accept="image/*" />
         </div>
 
-        <div class="image-card">
-          <h3>Styled Result</h3>
+        <div class="form-group">
+          <label for="artStyle">Choose Art Style</label>
+          <select id="artStyle">
+            <option value="ghibli">Studio Ghibli</option>
+            <option value="anime">Anime</option>
+            <option value="disney">Disney</option>
+            <option value="cyberpunk">Cyberpunk</option>
+            <option value="oil_painting">Oil Painting</option>
+            <option value="pixel_art">Pixel Art</option>
+          </select>
+        </div>
 
-          <div class="result-container">
-            <img id="resultImage" alt="Your AI image" />
-            <a
-              id="downloadBtn"
-              class="download-btn"
-              download="styled-image.png"
-              hidden
-            >
-              Download Image
-            </a>
+        <div class="form-group">
+          <label for="customStyle">Or describe your own style</label>
+          <input
+            type="text"
+            id="customStyle"
+            placeholder="e.g. a watercolour painting"
+          />
+        </div>
+
+        <button class="convert-btn" onclick="convertImage()">
+          Generate AI Art
+        </button>
+
+        <div class="status" id="status"></div>
+      </section>
+
+      <!-- RIGHT: the output showcase -->
+      <section class="panel showcase">
+        <div class="image-comparison">
+          <div class="image-card" id="originalCard">
+            <h3>Original Photo</h3>
+            <p id="previewText">No photo selected yet.</p>
+            <img id="previewImage" alt="Uploaded image preview" />
+          </div>
+
+          <div class="image-card" id="resultCard" hidden>
+            <h3>Styled Result</h3>
+
+            <div class="result-container">
+              <img id="resultImage" alt="Your AI image" />
+              <a
+                id="downloadBtn"
+                class="download-btn"
+                download="styled-image.png"
+                hidden
+              >
+                Download Image
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+
+        <div class="compare-box" id="compareBox" hidden>
+          <img id="compareOriginal" alt="Original photo" />
+          <img id="compareResult" alt="Styled result" />
+        </div>
+        <input
+          type="range"
+          id="compareSlider"
+          min="0"
+          max="100"
+          value="50"
+          hidden
+        />
+      </section>
+    </main>
 
     <script src="js/script.js"></script>
   </body>
