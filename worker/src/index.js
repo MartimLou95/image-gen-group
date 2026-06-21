@@ -42,8 +42,17 @@ export default {
       const photo = formData.get("image");
       const style = formData.get("style");
 
-      // STEP 3: Look up the AI instruction for that style.
-      const prompt = STYLE_PROMPTS[style];
+      // STEP 2b: Read the optional style the user typed in.
+      const customStyle = formData.get("customStyle");
+
+      // STEP 3: Decide the AI instruction. Use the typed style if there is one,
+      // otherwise look up the instruction for the chosen dropdown style.
+      let prompt;
+      if (customStyle && customStyle.trim() !== "") {
+        prompt = "Transform this photo in the following style: " + customStyle;
+      } else {
+        prompt = STYLE_PROMPTS[style];
+      }
 
       // STEP 4: If the photo or the style is missing, stop and say so.
       if (!photo || !prompt) {
@@ -97,10 +106,11 @@ export default {
       // STEP 7: Read OpenAI's answer.
       const result = await openaiResponse.json();
 
-      // STEP 8: If OpenAI was unhappy, pass a clear error back to the webpage.
+      // STEP 8: If OpenAI was unhappy, pass its actual reason back to the webpage.
       if (openaiResponse.ok === false) {
+        const reason = result.error ? result.error.message : "Unknown error";
         const errorReply = JSON.stringify({
-          error: "OpenAI could not process this image.",
+          error: "OpenAI rejected the request: " + reason,
         });
         return new Response(errorReply, {
           status: 502,

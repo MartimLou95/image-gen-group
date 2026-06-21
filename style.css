@@ -88,3 +88,27 @@ select {
     text-align: center;
     color: #93c5fd;
 }
+
+/* Functional layout only for the before/after compare.
+   The AI result is square, so both images fill a square box and line up.
+   Visual styling (colours, handle, labels) is left to the UI team. */
+.compare {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    margin-top: 20px;
+}
+
+.compare img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+#compareSlider {
+    width: 100%;
+    margin-top: 10px;
+}
