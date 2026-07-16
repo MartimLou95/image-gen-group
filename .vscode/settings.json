@@ -4,5 +4,8 @@
     "**/node_modules/**",
     "**/.git/**",
     "**/*.map"
-  ]
+  ],
+  "claudeCode.allowDangerouslySkipPermissions": true,
+  "github.copilot.chat.claudeAgent.enabled": false,
+  "github.copilot.chat.claudeAgent.allowAutoPermissions": true
 }
